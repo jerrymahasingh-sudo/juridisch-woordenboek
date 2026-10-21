@@ -1,0 +1,1932 @@
+<!DOCTYPE html>
+<html lang="nl" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juridisch Woordenboek Nederlands - Papiamentu</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            800: '#0a192f',
+                            900: '#06101e',
+                            950: '#030811',
+                        },
+                        gold: {
+                            400: '#f3ca65',
+                            500: '#d4af37',
+                            600: '#aa8823',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Lora', 'Georgia', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Cinzel', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .highlight-match {
+            background-color: #fef08a;
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body class="h-full flex flex-col font-sans text-slate-800 bg-slate-50 antialiased selection:bg-gold-500/20 selection:text-gold-600">
+
+    <!-- Top Header / Brand Bar -->
+    <header class="bg-navy-900 text-white shadow-lg sticky top-0 z-30 border-b border-gold-500/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo & Title -->
+                <div class="flex items-center space-x-4 cursor-pointer" onclick="resetSearchAndHome()">
+                    <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center text-navy-900 shadow-md">
+                        <i class="fa-solid me-0 fa-scale-balanced text-2xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-heading text-xl sm:text-2xl tracking-wide font-bold text-white flex items-center gap-2">
+                            LEXICON <span class="text-gold-400 text-xs font-sans tracking-wider px-2 py-0.5 rounded border border-gold-400/40 bg-gold-500/10 uppercase">NL → PAP</span>
+                        </h1>
+                        <p class="text-xs text-slate-400 font-serif italic">Juridisch Woordenboek / Dictionario Juridico</p>
+                    </div>
+                </div>
+
+                <!-- Desktop Quick Actions -->
+                <div class="hidden md:flex items-center space-x-3">
+                    <button onclick="toggleFavoritesView()" id="favNavBtn" class="flex items-center space-x-2 px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-slate-800/80 transition">
+                        <i class="fa-solid fa-bookmark text-gold-400"></i>
+                        <span>Favorieten</span>
+                        <span id="favBadge" class="bg-gold-500 text-navy-900 text-xs font-bold px-1.5 py-0.5 rounded-full">0</span>
+                    </button>
+                    <button onclick="openAddModal()" class="flex items-center space-x-2 px-3.5 py-2 rounded-lg text-sm bg-gold-500 hover:bg-gold-400 text-navy-900 font-semibold shadow transition">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Term Toevoegen</span>
+                    </button>
+                    <button onclick="openExportModal()" class="flex items-center space-x-1.5 px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-slate-800 transition">
+                        <i class="fa-solid fa-file-export"></i>
+                        <span>Export/Import</span>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center space-x-2">
+                    <button onclick="toggleFavoritesView()" class="p-2 text-gold-400 relative">
+                        <i class="fa-solid fa-bookmark text-xl"></i>
+                        <span id="mobileFavBadge" class="absolute -top-1 -right-1 bg-gold-500 text-navy-900 text-xs font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
+                    </button>
+                    <button onclick="toggleMobileMenu()" class="p-2 text-slate-300 hover:text-white focus:outline-none">
+                        <i id="mobileMenuIcon" class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobileMenu" class="hidden md:hidden border-t border-slate-800 bg-navy-900 px-4 pt-2 pb-4 space-y-2">
+            <button onclick="openAddModal(); toggleMobileMenu();" class="w-full text-left flex items-center space-x-2 px-3 py-2 rounded-md text-slate-200 hover:bg-slate-800">
+                <i class="fa-solid fa-plus text-gold-400"></i>
+                <span>Nieuwe juridische term toevoegen</span>
+            </button>
+            <button onclick="openExportModal(); toggleMobileMenu();" class="w-full text-left flex items-center space-x-2 px-3 py-2 rounded-md text-slate-200 hover:bg-slate-800">
+                <i class="fa-solid fa-file-export text-gold-400"></i>
+                <span>Woordenbank Exporteren / Importeren</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col gap-6">
+
+        <!-- Search Header Box -->
+        <section class="bg-gradient-to-r from-navy-900 via-slate-900 to-navy-800 rounded-2xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden">
+            <!-- Background Decorative Grid -->
+            <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#d4af37_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
+
+            <div class="relative z-10 max-w-3xl mx-auto text-center">
+                <h2 class="text-2xl sm:text-3xl font-heading font-semibold text-white mb-2">Zoek in het Juridisch Woordenboek</h2>
+                <p class="text-slate-300 text-sm sm:text-base font-serif mb-6">Nederlands - Papiamentu rechtsterminologie (Curaçao, Bonaire, Aruba)</p>
+
+                <!-- Main Live Search Form -->
+                <div class="relative text-slate-800">
+                    <div class="relative flex items-center">
+                        <i class="fa-solid fa-magnifying-glass absolute left-4 text-slate-400 text-lg"></i>
+                        <input type="text" id="searchInput" placeholder="Typ een Nederlandse term of Papiamentu vertaling (bijv. vonnis, eiser, sentensia)..."
+                            class="w-full pl-12 pr-28 py-4 bg-white rounded-xl shadow-2xl text-slate-900 placeholder-slate-400 font-medium focus:outline-none focus:ring-4 focus:ring-gold-500/50 transition text-base sm:text-lg"
+                            autocomplete="off" autocomplete="false" />
+                        
+                        <button id="clearSearchBtn" onclick="clearSearch()" class="hidden absolute right-12 text-slate-400 hover:text-slate-600 p-2">
+                            <i class="fa-solid fa-xmark text-lg"></i>
+                        </button>
+                        <span class="absolute right-4 text-xs font-mono text-slate-400 hidden sm:inline-block bg-slate-100 px-2 py-1 rounded border">ESC</span>
+                    </div>
+
+                    <!-- Autocomplete / Instant Suggestions Dropdown -->
+                    <div id="suggestionsBox" class="hidden absolute left-0 right-0 top-full mt-2 bg-white rounded-xl shadow-2xl border border-slate-200 z-50 text-left overflow-hidden max-h-80 overflow-y-auto">
+                        <!-- Populated dynamic -->
+                    </div>
+                </div>
+
+                <!-- Recent Searches Bar -->
+                <div id="recentSearchesContainer" class="mt-4 flex flex-wrap items-center justify-center gap-2 text-xs text-slate-300">
+                    <span class="text-slate-400 flex items-center gap-1"><i class="fa-solid fa-clock-rotate-left"></i> Recent:</span>
+                    <div id="recentList" class="flex flex-wrap gap-1.5">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Alphabetical Quick Nav (Van Dale Style) -->
+        <nav class="bg-white rounded-xl p-3 shadow-sm border border-slate-200 flex items-center justify-between overflow-x-auto text-sm font-medium">
+            <span class="text-xs uppercase font-bold text-slate-400 px-2 hidden lg:inline">Index:</span>
+            <div class="flex items-center gap-1 w-full justify-between min-w-max" id="alphabetNav">
+                <!-- Populated via JS -->
+            </div>
+        </nav>
+
+        <!-- Main Content Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+            <!-- Sidebar Filters & Navigation (3 cols) -->
+            <aside class="lg:col-span-4 xl:col-span-3 space-y-5">
+                
+                <!-- Category Filter Card -->
+                <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200">
+                    <div class="flex items-center justify-between mb-4 pb-2 border-b border-slate-100">
+                        <h3 class="font-bold text-slate-800 text-sm uppercase tracking-wider flex items-center gap-2">
+                            <i class="fa-solid fa-filter text-gold-500"></i> Rechtsgebieden
+                        </h3>
+                        <button onclick="filterByCategory('ALL')" class="text-xs text-gold-600 hover:underline font-medium">Wis filter</button>
+                    </div>
+                    <div id="categoryFilterList" class="space-y-1 text-sm">
+                        <!-- Populated via JS -->
+                    </div>
+                </div>
+
+                <!-- Quick Stats / Info Widget -->
+                <div class="bg-slate-100/80 rounded-xl p-4 border border-slate-200 text-xs text-slate-600 space-y-2">
+                    <div class="flex justify-between items-center">
+                        <span class="font-medium">Totaal opgenomen termen:</span>
+                        <span id="totalTermsCount" class="font-bold text-slate-800">0</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="font-medium">Spellingvarianten:</span>
+                        <span class="text-slate-700">Papiamentu (CW/BQ/AW)</span>
+                    </div>
+                    <div class="pt-2 border-t border-slate-200 text-slate-500 italic">
+                        Gebaseerd op rechtspraak, wetgeving en juridische praktijk van het Caribisch deel van het Koninkrijk.
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Results & Content Area (8 or 9 cols) -->
+            <section class="lg:col-span-8 xl:col-span-9 space-y-4">
+
+                <!-- Results Header Bar -->
+                <div class="bg-white rounded-xl p-4 shadow-sm border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                        <h2 id="resultsHeading" class="text-lg font-bold text-slate-800">Alle Juridische Termen</h2>
+                        <span id="resultsCountBadge" class="bg-slate-100 text-slate-700 text-xs font-semibold px-2.5 py-1 rounded-full border border-slate-200">0 resultaten</span>
+                    </div>
+
+                    <!-- Sorting & View Options -->
+                    <div class="flex items-center space-x-2 text-xs">
+                        <label for="sortSelect" class="text-slate-500 font-medium">Sorteer:</label>
+                        <select id="sortSelect" onchange="handleSortChange()" class="bg-slate-50 border border-slate-300 text-slate-700 py-1.5 px-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500">
+                            <option value="alpha-asc">A-Z (Nederlands)</option>
+                            <option value="alpha-desc">Z-A (Nederlands)</option>
+                            <option value="pap-asc">A-Z (Papiamentu)</option>
+                            <option value="category">Op Categorie</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Active Filters Indicator Bar -->
+                <div id="activeFiltersBar" class="hidden flex flex-wrap items-center gap-2 bg-gold-500/10 border border-gold-500/30 p-2.5 rounded-xl text-xs text-navy-900">
+                    <span class="font-bold">Actieve filters:</span>
+                    <div id="activeFiltersBadges" class="flex flex-wrap gap-1"></div>
+                    <button onclick="resetAllFilters()" class="ml-auto text-xs text-gold-600 hover:underline font-bold">Herstel alles</button>
+                </div>
+
+                <!-- Dictionary Entries List View -->
+                <div id="dictionaryList" class="space-y-3">
+                    <!-- Populated dynamic entries -->
+                </div>
+
+                <!-- Empty Search State -->
+                <div id="emptyState" class="hidden bg-white rounded-2xl p-12 text-center border border-slate-200 shadow-sm space-y-4">
+                    <div class="w-16 h-16 bg-slate-100 text-slate-400 rounded-full flex items-center justify-center mx-auto text-2xl">
+                        <i class="fa-solid fa-book-open"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-800">Geen juridische termen gevonden</h3>
+                    <p class="text-slate-500 text-sm max-w-md mx-auto">Probeer een andere zoekterm, controleer op spelfouten of wis de geselecteerde categorie-filters.</p>
+                    <button onclick="resetAllFilters()" class="inline-flex items-center space-x-2 bg-navy-900 text-white text-xs font-semibold px-4 py-2.5 rounded-lg hover:bg-slate-800 transition">
+                        <i class="fa-solid fa-rotate"></i>
+                        <span>Wis alle filters</span>
+                    </button>
+                </div>
+
+            </section>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-navy-950 text-slate-400 text-xs py-8 border-t border-slate-800 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-3">
+            <p class="font-serif">Juridisch Woordenboek Nederlands - Papiamentu &copy; <span id="yearSpan"></span> | Van Dale & Woordenlijst.org stijl referentie-app</p>
+            <p class="text-slate-500">Ontworpen voor juristen, vertalers, studenten en de rechtspraktijk op Curaçao, Bonaire en Aruba.</p>
+        </div>
+    </footer>
+
+    <!-- MODAL: WORD DETAIL VIEW -->
+    <div id="detailModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200 transform transition-all flex flex-col">
+            <!-- Modal Header -->
+            <div class="bg-navy-900 text-white p-6 sticky top-0 z-10 flex items-start justify-between border-b border-gold-500/30">
+                <div>
+                    <span id="detailCategory" class="inline-block text-[10px] font-bold tracking-wider uppercase bg-gold-500/20 text-gold-400 px-2.5 py-0.5 rounded border border-gold-400/30 mb-2">Category</span>
+                    <h2 id="detailTerm" class="text-2xl font-serif font-bold text-white flex items-center gap-3">
+                        Term
+                    </h2>
+                    <span id="detailGrammar" class="text-xs text-slate-300 italic font-serif">woordsoort</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <button id="detailFavBtn" onclick="" class="p-2 text-slate-400 hover:text-gold-400 transition text-lg">
+                        <i class="fa-regular fa-bookmark"></i>
+                    </button>
+                    <button onclick="closeDetailModal()" class="p-2 text-slate-400 hover:text-white text-lg">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Modal Content Body -->
+            <div class="p-6 space-y-6 flex-grow">
+                
+                <!-- Main Papiamentu Translation Box -->
+                <div class="bg-slate-50 rounded-xl p-4 border border-slate-200 flex items-center justify-between">
+                    <div>
+                        <span class="text-xs font-semibold uppercase text-slate-400 block mb-1">Papiamentu Vertaling</span>
+                        <div id="detailTranslation" class="text-xl font-bold text-navy-900 font-serif">
+                            Translation
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="speakText()" class="p-2.5 bg-white border border-slate-200 rounded-lg text-slate-700 hover:text-navy-900 hover:border-slate-300 shadow-sm transition" title="Lees voor / Pronunciashon">
+                            <i class="fa-solid fa-volume-high"></i>
+                        </button>
+                        <button onclick="copyTranslation()" class="p-2.5 bg-white border border-slate-200 rounded-lg text-slate-700 hover:text-navy-900 hover:border-slate-300 shadow-sm transition" title="Kopieer vertaling">
+                            <i class="fa-regular fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Synonyms / Alternative Spellings -->
+                <div id="detailSynonymsSection" class="hidden text-sm">
+                    <span class="font-bold text-slate-700 text-xs uppercase block mb-1">Synoniemen / Variant-schrijfwijze:</span>
+                    <div id="detailSynonyms" class="text-slate-600 font-medium">--</div>
+                </div>
+
+                <!-- Definitions Section -->
+                <div class="space-y-3">
+                    <h4 class="text-xs font-bold uppercase text-slate-500 tracking-wider border-b pb-1">Definitie & Betekenis</h4>
+                    <div class="space-y-2">
+                        <div class="bg-amber-50/50 p-3.5 rounded-lg border border-amber-200/60">
+                            <span class="text-xs font-bold text-amber-900 block mb-1">Nederlands:</span>
+                            <p id="detailDefNL" class="text-sm text-slate-800 leading-relaxed font-serif">--</p>
+                        </div>
+                        <div class="bg-blue-50/50 p-3.5 rounded-lg border border-blue-200/60">
+                            <span class="text-xs font-bold text-blue-900 block mb-1">Papiamentu:</span>
+                            <p id="detailDefPAP" class="text-sm text-slate-800 leading-relaxed font-serif">--</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Context & Examples -->
+                <div id="detailContextSection" class="space-y-2">
+                    <h4 class="text-xs font-bold uppercase text-slate-500 tracking-wider border-b pb-1">Juridische Context & Voorbeeldzin</h4>
+                    <blockquote class="border-l-4 border-gold-500 pl-4 py-2 italic text-sm text-slate-700 bg-slate-50 rounded-r">
+                        <p id="detailExampleNL" class="mb-1">"--"</p>
+                        <p id="detailExamplePAP" class="text-slate-500 text-xs font-serif font-normal">"--"</p>
+                    </blockquote>
+                </div>
+
+                <!-- Related Terms Links -->
+                <div>
+                    <h4 class="text-xs font-bold uppercase text-slate-500 tracking-wider mb-2">Gerelateerde Juridische Begrippen</h4>
+                    <div id="detailRelated" class="flex flex-wrap gap-2">
+                        <!-- Dynamic clickable badges -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Footer Controls -->
+            <div class="bg-slate-100 px-6 py-4 border-t border-slate-200 flex items-center justify-between text-xs">
+                <div class="flex items-center space-x-2">
+                    <button id="prevWordBtn" onclick="" class="px-3 py-1.5 bg-white border border-slate-300 rounded hover:bg-slate-50 text-slate-700 flex items-center gap-1 font-medium">
+                        <i class="fa-solid fa-chevron-left"></i> Vorige
+                    </button>
+                    <button id="nextWordBtn" onclick="" class="px-3 py-1.5 bg-white border border-slate-300 rounded hover:bg-slate-50 text-slate-700 flex items-center gap-1 font-medium">
+                        Volgende <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+                <button onclick="closeDetailModal()" class="px-4 py-2 bg-navy-900 text-white font-semibold rounded-lg hover:bg-slate-800 transition">Sluiten</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: ADD NEW WORD FORM -->
+    <div id="addModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200">
+            <div class="bg-navy-900 text-white p-5 flex items-center justify-between border-b border-gold-500/30">
+                <h3 class="font-heading text-lg font-bold flex items-center gap-2">
+                    <i class="fa-solid fa-plus text-gold-400"></i> Nieuwe Juridische Term Toevoegen
+                </h3>
+                <button onclick="closeAddModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            
+            <form id="addTermForm" onsubmit="handleAddNewTerm(event)" class="p-6 space-y-4 text-sm">
+                <div>
+                    <label class="block font-semibold text-slate-700 mb-1">Nederlands Trefwoord *</label>
+                    <input type="text" id="addTermNL" required placeholder="bijv. Vrijspraak" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:outline-none">
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">Papiamentu Vertaling *</label>
+                        <input type="text" id="addTermPAP" required placeholder="bijv. Absolushon" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">Woordsoort</label>
+                        <select id="addGrammar" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:outline-none bg-white">
+                            <option value="znw. m.">Zelfstandig naamwoord (m.)</option>
+                            <option value="znw. v.">Zelfstandig naamwoord (v.)</option>
+                            <option value="znw. o.">Zelfstandig naamwoord (o.)</option>
+                            <option value="ww.">Werkwoord</option>
+                            <option value="bnw.">Bijvoeglijk naamwoord</option>
+                            <option value="uitdr.">Uitdrukking / Frase</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block font-semibold text-slate-700 mb-1">Juridische Categorie *</label>
+                    <select id="addCategory" required class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:outline-none bg-white">
+                        <option value="Strafrecht">Strafrecht</option>
+                        <option value="Burgerlijk recht">Burgerlijk recht</option>
+                        <option value="Familierecht">Familierecht</option>
+                        <option value="Arbeidsrecht">Arbeidsrecht</option>
+                        <option value="Bestuursrecht">Bestuursrecht</option>
+                        <option value="Contractenrecht">Contractenrecht</option>
+                        <option value="Staatsrecht">Staatsrecht</option>
+                        <option value="Procesrecht">Procesrecht</option>
+                        <option value="Goederenrecht">Goederenrecht</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block font-semibold text-slate-700 mb-1">Synoniemen / Alternatieve Schrijfwijze</label>
+                    <input type="text" id="addSynonyms" placeholder="Kommagescheiden, bijv.: vrijgesproken, absolveringa" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:outline-none">
+                </div>
+
+                <div>
+                    <label class="block font-semibold text-slate-700 mb-1">Definitie (Nederlands)</label>
+                    <textarea id="addDefNL" rows="2" placeholder="Korte juridische omschrijving..." class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:outline-none"></textarea>
+                </div>
+
+                <div>
+                    <label class="block font-semibold text-slate-700 mb-1">Definitie (Papiamentu)</label>
+                    <textarea id="addDefPAP" rows="2" placeholder="Definishon na Papiamentu..." class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:outline-none"></textarea>
+                </div>
+
+                <div class="pt-3 border-t border-slate-200 flex justify-end space-x-3">
+                    <button type="button" onclick="closeAddModal()" class="px-4 py-2 border border-slate-300 rounded-lg text-slate-600 hover:bg-slate-100 font-medium">Annuleren</button>
+                    <button type="submit" class="px-5 py-2 bg-gold-500 hover:bg-gold-400 text-navy-900 font-bold rounded-lg shadow transition">Opslaan in Woordenbank</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: EXPORT / IMPORT -->
+    <div id="exportModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-lg w-full shadow-2xl border border-slate-200 p-6 space-y-5">
+            <div class="flex justify-between items-center border-b pb-3">
+                <h3 class="font-heading font-bold text-navy-900 text-lg">Woordenbank Exporteren / Importeren</h3>
+                <button onclick="closeExportModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+
+            <p class="text-xs text-slate-600 leading-relaxed">
+                Exporteer de volledige juridische database inclusief uw zelf toegevoegde termen naar JSON-formaat voor back-up of delen met collega's.
+            </p>
+
+            <div class="space-y-3">
+                <button onclick="exportDatabaseJSON()" class="w-full flex items-center justify-between px-4 py-3 bg-slate-100 hover:bg-slate-200 rounded-xl border border-slate-200 text-slate-800 font-semibold text-xs transition">
+                    <span class="flex items-center gap-2"><i class="fa-solid fa-file-code text-gold-600 text-base"></i> Download Woordenbank als JSON</span>
+                    <i class="fa-solid fa-download"></i>
+                </button>
+
+                <button onclick="exportFavoritesCSV()" class="w-full flex items-center justify-between px-4 py-3 bg-slate-100 hover:bg-slate-200 rounded-xl border border-slate-200 text-slate-800 font-semibold text-xs transition">
+                    <span class="flex items-center gap-2"><i class="fa-solid fa-file-csv text-emerald-600 text-base"></i> Export Favorieten als CSV</span>
+                    <i class="fa-solid fa-download"></i>
+                </button>
+            </div>
+
+            <div class="border-t pt-4">
+                <label class="block font-semibold text-xs text-slate-700 mb-2">JSON Importeren:</label>
+                <input type="file" id="importFileInput" accept=".json" class="text-xs text-slate-500 file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-navy-900 file:text-white hover:file:bg-slate-800">
+            </div>
+
+            <div class="flex justify-end pt-2">
+                <button onclick="closeExportModal()" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 font-medium rounded-lg text-xs">Sluiten</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-navy-900 text-white px-4 py-3 rounded-xl shadow-2xl border border-gold-500/40 flex items-center space-x-3 translate-y-20 opacity-0 transition-all duration-300 z-50 pointer-events-none text-xs font-medium">
+        <i id="toastIcon" class="fa-solid fa-circle-check text-gold-400 text-base"></i>
+        <span id="toastMsg">Actie succesvol uitgevoerd</span>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC & DATABASE -->
+    <script>
+        // Initial Database of 50+ rich legal terms
+        const INITIAL_DATABASE = [
+            {
+                id: "term-1",
+                termNL: "aansprakelijkheid",
+                termPAP: "responsabilidat",
+                grammar: "znw. v.",
+                category: "Burgerlijk recht",
+                synonyms: ["verantwoordelijkheid", "aansprakelijkstelling"],
+                defNL: "De wettelijke of contractuele verplichting om de nadelige gevolgen van een onrechtmatige daad of wanprestatie te dragen of te vergoeden.",
+                defPAP: "Obligashon legal o kontraktual pa carga o compensa e consecuencianan desfavorabel di un acto ilegal o incumplimento.",
+                exampleNL: "De werkgever draagt aansprakelijkheid voor de schade die zijn ondergeschikte berokkent.",
+                examplePAP: "E patron ta carga responsabilidat pa e daño cu su empleado ocasiona.",
+                related: ["onrechtmatige daad", "schadeloosstelling", "risico-aansprakelijkheid"]
+            },
+            {
+                id: "term-2",
+                termNL: "advocaat",
+                termPAP: "abogado",
+                grammar: "znw. m.",
+                category: "Procesrecht",
+                synonyms: ["raadsman", "raadvrouw", "gemachtigde"],
+                defNL: "Een door de wet beëdigde rechtsbijstandverlener die partijen bijstaat in en buiten rechte.",
+                defPAP: "Un profesional di derecho huramenta pa ley cu ta asisti partidanan den i for di corte.",
+                exampleNL: "De advocaat verzocht het Hof om de raadslieden meer tijd te gunnen.",
+                examplePAP: "E abogado a pidi Hof mas tempo pa preparashon.",
+                related: ["pleidooi", "griffier", "gemachtigde"]
+            },
+            {
+                id: "term-3",
+                termNL: "ambtshalve",
+                termPAP: "ex officio / di ofisio",
+                grammar: "bijw.",
+                category: "Procesrecht",
+                synonyms: ["uit eigen beweging", "ex officio"],
+                defNL: "Optreden van de rechter of instantie uit hoofde van de functie, zonder dat partijen daartoe een verzoek hebben gedaan.",
+                defPAP: "Actuashon di un hues o autoridad pa motivo di su funshon sin cu e partidanan a haci un petishon.",
+                exampleNL: "De rechter past de rechtsgronden ambtshalve toe.",
+                examplePAP: "E hues ta aplica e basenan legal di ofisio.",
+                related: ["rechter", "vonnis", "beschikking"]
+            },
+            {
+                id: "term-4",
+                termNL: "dagvaarding",
+                termPAP: "citashon / dagvaarding",
+                grammar: "znw. v.",
+                category: "Procesrecht",
+                synonyms: ["oproeping", "exploot"],
+                defNL: "Officieel schriftelijk bericht waarin een persoon wordt opgeroepen om voor de rechter te verschijnen.",
+                defPAP: "Notificashon ofisial por escrito den cual ta yama un persona pa comparese dilanti corte.",
+                exampleNL: "De deurwaarder heeft de dagvaarding gisteren betekend.",
+                examplePAP: "E deurwaarder a entrega e citashon ayera.",
+                related: ["eiser", "gedaagde", "kort geding"]
+            },
+            {
+                id: "term-5",
+                termNL: "vonnis",
+                termPAP: "vonnis / sentensia",
+                grammar: "znw. o.",
+                category: "Procesrecht",
+                synonyms: ["uitspraak", "rechterlijke beslissing"],
+                defNL: "Einduitspraak van de rechter in een procedure die met een dagvaarding is ingeleid.",
+                defPAP: "Decishon final di un hues den un procedimiento inisia pa medio di un citashon.",
+                exampleNL: "Het vonnis werd bij voorraad uitvoerbaar verklaard.",
+                examplePAP: "E sentensia a keda declara ecutabel mesora.",
+                related: ["hoger beroep", "rechter", "beschikking"]
+            },
+            {
+                id: "term-6",
+                termNL: "hoger beroep",
+                termPAP: "apelashon",
+                grammar: "znw. o.",
+                category: "Procesrecht",
+                synonyms: ["appèl", "herziening in tweede instantie"],
+                defNL: "Het voorleggen van een zaak waarin reeds vonnis is gewezen aan een hogere rechter (het Gemeenschappelijk Hof van Justitie).",
+                defPAP: "Presenta un caso den cual tin un sentensia caba dilanti un hues mas altu (Hof di Hustisia).",
+                exampleNL: "Verdachte is in hoger beroep gegaan tegen de opgelegde straf.",
+                examplePAP: "E sospechoso a bay den apelashon contra e pena imponi.",
+                related: ["vonnis", "cassatie", "hof van justitie"]
+            },
+            {
+                id: "term-7",
+                termNL: "eiser",
+                termPAP: "demandante",
+                grammar: "znw. m.",
+                category: "Procesrecht",
+                synonyms: ["verzoeker", "procespartij"],
+                defNL: "De partij die in een burgerlijk proces een vordering instelt tegen een gedaagde.",
+                defPAP: "E parti cu ta inicia un demanda civil contra un demandado.",
+                exampleNL: "Eiser vordert vergoeding van de geleden schade.",
+                examplePAP: "E demandante ta exigi compensashon pa e daño sufri.",
+                related: ["gedaagde", "dagvaarding", "vordering"]
+            },
+            {
+                id: "term-8",
+                termNL: "gedaagde",
+                termPAP: "demandado",
+                grammar: "znw. m./v.",
+                category: "Procesrecht",
+                synonyms: ["verweerder"],
+                defNL: "De partij die in een civiele procedure wordt opgeroepen om te antwoorden op de eis.",
+                defPAP: "E parti cu ta wordo yama den un juicio civil pa contesta e demanda.",
+                exampleNL: "Gedaagde betwist de hoogte van de gevorderde som.",
+                examplePAP: "E demandado ta contesta e suma exigi.",
+                related: ["eiser", "dagvaarding", "verweerschrift"]
+            },
+            {
+                id: "term-9",
+                termNL: "verdachte",
+                termPAP: "sospechoso",
+                grammar: "znw. m./v.",
+                category: "Strafrecht",
+                synonyms: ["beschuldigde"],
+                defNL: "Degene uit wiens daden of woorden een redelijk vermoeden van skuld aan een strafbaar feit voortvloeit.",
+                defPAP: "Esun di kende su actonan o palabranan ta lanta un sospecho rasonabel di un hecho kastigabel.",
+                exampleNL: "De verdachte werd verhoord in tegenwoordigheid van zijn advocaat.",
+                examplePAP: "E sospechoso a keda interoga den presencia di su abogado.",
+                related: ["strafbaar feit", "openbaar ministerie", "vrijspraak"]
+            },
+            {
+                id: "term-10",
+                termNL: "strafbaar feit",
+                termPAP: "delito / hecho kastigabel",
+                grammar: "znw. o.",
+                category: "Strafrecht",
+                synonyms: ["delict", "overtreding", "misdrijf"],
+                defNL: "Een menselijke gedraging die valt onder een wettelijke strafbepaling.",
+                defPAP: "Un conducta humano cu ta cay bou di un stipulashon di castigo segun ley.",
+                exampleNL: "Het handelen van de verdachte levert een strafbaar feit op.",
+                examplePAP: "E accion di e sospechoso ta constitui un hecho kastigabel.",
+                related: ["verdachte", "hechtenis", "vrijspraak"]
+            },
+            {
+                id: "term-11",
+                termNL: "overeenkomst",
+                termPAP: "kontrato / akuerdo",
+                grammar: "znw. v.",
+                category: "Contractenrecht",
+                synonyms: ["contract", "pact"],
+                defNL: "Een meerzijdige rechtshandeling waarbij een of meer partijen een verbintenis aangaan jegens een of meer andere partijen.",
+                defPAP: "Un acto legal multilateral den cual un o mas parti ta drenta un compromiso cu otro.",
+                exampleNL: "De overeenkomst werd door beide partijen ondertekend.",
+                examplePAP: "E kontrato a keda firma pa ambos parti.",
+                related: ["ontbinding", "wanprestatie", "schikking"]
+            },
+            {
+                id: "term-12",
+                termNL: "echtscheiding",
+                termPAP: "divorcio",
+                grammar: "znw. v.",
+                category: "Familierecht",
+                synonyms: ["huwelijksontbinding"],
+                defNL: "De juridische beëindiging van een huwelijk door de rechter op verzoek van een of beide echtgenoten.",
+                defPAP: "E terminashon legal di un matrimonio pa medio di hues riba petishon di un o ambos spouse.",
+                exampleNL: "De rechter heeft de echtscheiding uitgesproken.",
+                examplePAP: "E hues a declara e divorcio.",
+                related: ["alimentatie", "ouderlijk gezag", "boedel"]
+            },
+            {
+                id: "term-13",
+                termNL: "arbeidsovereenkomst",
+                termPAP: "kontrato di trabou",
+                grammar: "znw. v.",
+                category: "Arbeidsrecht",
+                synonyms: ["arbeidscontract"],
+                defNL: "Overeenkomst waarbij de ene partij (werknemer) zich verbindt in dienst van de andere partij (werkgever) tegen loon arbeid te verrichten.",
+                defPAP: "Akuerdo den cual un parti (empleado) ta compromete su mes pa traha bou mando di otro parti (patron) pa un salario.",
+                exampleNL: "De arbeidsovereenkomst werd aangegaan voor onbepaalde tijd.",
+                examplePAP: "E kontrato di trabou a keda acorda pa tempo indefini.",
+                related: ["proefperiodes", "ontslag op staande voet", "CAO"]
+            },
+            {
+                id: "term-14",
+                termNL: "bezwaar",
+                termPAP: "obheshon",
+                grammar: "znw. o.",
+                category: "Bestuursrecht",
+                synonyms: ["bezwaarschrift", "reformatie"],
+                defNL: "De voorziening waarmee een belanghebbende het bestuursorgaan vraagt een genomen besluit te heroverwegen.",
+                defPAP: "E recurso cu un interesado ta pidi e órgano di gobernashon pa rebalora un desishon tuma.",
+                exampleNL: "Het bezwaar werd binnen de wettelijke termijn van zes weken ingediend.",
+                examplePAP: "E obheshon a keda presenta den e termino legal di seis siman.",
+                related: ["beschikking", "bestuursorgaan", "beroep"]
+            },
+            {
+                id: "term-15",
+                termNL: "beroep",
+                termPAP: "recurso / apelashon",
+                grammar: "znw. o.",
+                category: "Bestuursrecht",
+                synonyms: ["beroepschrift"],
+                defNL: "Het aanvechten van een beslissing van een bestuursorgaan bij de bestuursrechter.",
+                defPAP: "Impugna un desishon di un órgano di gobernashon dilanti hues administrativo.",
+                exampleNL: "Beroep kan worden ingesteld bij het Gerecht in eerste aanleg.",
+                examplePAP: "Por presenta un recurso dilanti di Gerecht in eerste aanleg.",
+                related: ["bezwaar", "beschikking", "bestuursrecht"]
+            },
+            {
+                id: "term-16",
+                termNL: "voogdij",
+                termPAP: "kuminda i kuido / tutela",
+                grammar: "znw. v.",
+                category: "Familierecht",
+                synonyms: ["voogdijschap", "gezagsuitoefening"],
+                defNL: "Het wettelijk gezag over een minderjarige die niet onder het gezag van zijn ouders staat.",
+                defPAP: "E autoridad legal riba un menor cu no ta bou di autoridat di su matris o patris.",
+                exampleNL: "Na het overlijden van de ouders werd de voogdij toegewezen aan de oom.",
+                examplePAP: "Despues di fayecemento di e matris i patris, e tutela a keda encarga na e tio.",
+                related: ["ouderlijk gezag", "voogd", "curatela"]
+            },
+            {
+                id: "term-17",
+                termNL: "eigendomsrecht",
+                termPAP: "derechi di propiedat",
+                grammar: "znw. o.",
+                category: "Goederenrecht",
+                synonyms: ["eigendom"],
+                defNL: "Het meest omvattende recht dat een persoon op een zaak kan hebben.",
+                defPAP: "E derechi mas completo cu un persona por tin riba un obheto o bien.",
+                exampleNL: "Het eigendomsrecht van het perceel is vastgelegd in de openbare registers.",
+                examplePAP: "E derechi di propiedat di e tereno ta registra den kadaster.",
+                related: ["boedel", "vordering", "aansprakelijkheid"]
+            },
+            {
+                id: "term-18",
+                termNL: "ontbinding",
+                termPAP: "resishon / disolushon",
+                grammar: "znw. v.",
+                category: "Contractenrecht",
+                synonyms: ["beëindiging", "vernietiging van overeenkomst"],
+                defNL: "De wijze waarop een wederkerige overeenkomst wordt beëindigd wanneer een van de partijen tekortschiet.",
+                defPAP: "Manera cu un kontrato ta keda termina ora un di e partidanan no cumpli cu su obligashon.",
+                exampleNL: "Eiser vorderde de ontbinding van de koopovereenkomst wegens verborgen gebreken.",
+                examplePAP: "E demandante a exigi e resishon di e kontrato pa motivo di defectonan oculto.",
+                related: ["overeenkomst", "wanprestatie", "schadeloosstelling"]
+            },
+            {
+                id: "term-19",
+                termNL: "schadeloosstelling",
+                termPAP: "kompensashon / indemnisashon",
+                grammar: "znw. v.",
+                category: "Burgerlijk recht",
+                synonyms: ["schadevergoeding"],
+                defNL: "Het vergoeden van geleden financiële en/of immateriële schade aan het slachtoffer.",
+                defPAP: "Paga bek e daño financiero o moral cu un victima a sufri.",
+                exampleNL: "De rechter kende een aanzienlijke schadeloosstelling toe.",
+                examplePAP: "E hues a asigna un kompensashon substansial.",
+                related: ["aansprakelijkheid", "onrechtmatige daad"]
+            },
+            {
+                id: "term-20",
+                termNL: "bewijslast",
+                termPAP: "karga di prueba",
+                grammar: "znw. v.",
+                category: "Procesrecht",
+                synonyms: ["bewijsplicht"],
+                defNL: "De verplichting van een procespartij om de door haar gestelde feiten te bewijzen.",
+                defPAP: "E obligashon di un parti den proceso pa prueba e hechonan cu e ta alegando.",
+                exampleNL: "In civiele zaken rust de bewijslast in beginsel op de eiser.",
+                examplePAP: "Den casonan civil, e karga di prueba ta cay en principio riba e demandante.",
+                related: ["eiser", "gedaagde", "vonnis"]
+            },
+            {
+                id: "term-21",
+                termNL: "testament",
+                termPAP: "testamento",
+                grammar: "znw. o.",
+                category: "Familierecht",
+                synonyms: ["uiterste wilsbeschikking"],
+                defNL: "Een notariële akte waarin iemand vastlegt wat er na zijn/haar overlijden met de bezittingen moet gebeuren.",
+                defPAP: "Un documento notarial den cual un persona ta stipula kico mester pasa cu su biennan despues di su fayecemento.",
+                exampleNL: "Het testament werd opgesteld bij de notaris te Willemstad.",
+                examplePAP: "E testamento a keda redacta cerca notaria na Willemstad.",
+                related: ["boedel", "notariskantoor"]
+            },
+            {
+                id: "term-22",
+                termNL: "curatele",
+                termPAP: "curatela",
+                grammar: "znw. v.",
+                category: "Familierecht",
+                synonyms: ["ondercuratelestelling"],
+                defNL: "Gerechtelijke maatregel ter bescherming van personen die hun vermogensrechtelijke en niet-vermogensrechtelijke belangen niet kunnen behartigen.",
+                defPAP: "Medida judicial pa proteha personanan cu no por maneha nan asuntonan financiero o personal.",
+                exampleNL: "De betrokkene werd vanwege een geestelijke stoornis onder curatele gesteld.",
+                examplePAP: "E persona a keda poní bou di curatela pa motivo di un trastorno mental.",
+                related: ["voogdij", "ouderlijk gezag"]
+            },
+            {
+                id: "term-23",
+                termNL: "nietig",
+                termPAP: "nulo / sin efekto legal",
+                grammar: "bnw.",
+                category: "Burgerlijk recht",
+                synonyms: ["ongeldig", "van rechtswege nietig"],
+                defNL: "Van meet af aan juridisch krachteloos en zonder rechtsgevolg.",
+                defPAP: "Sin validez legal desde principio i sin efecltonan juridico.",
+                exampleNL: "Een rechtshandeling die in strijd is met de goede zeden is van rechtswege nietig.",
+                examplePAP: "Un acto legal cu ta bay contra bon custumber ta nulo di pleno derechi.",
+                related: ["overeenkomst", "ontbinding"]
+            },
+            {
+                id: "term-24",
+                termNL: "kort geding",
+                termPAP: "kort geding / prosedimiento akselerá",
+                grammar: "znw. o.",
+                category: "Procesrecht",
+                synonyms: ["voorlopige voorziening"],
+                defNL: "Een snelle, vereenvoudigde procedure voor dringende zaken waarin een onmiddellijke beslissing vereist is.",
+                defPAP: "Un procedimiento rapido i simplifica pa casonan urgente cu mester di un desishon inmediato.",
+                exampleNL: "In kort geding werd de staking door de rechter verboden.",
+                examplePAP: "Den kort geding hues a prohibi e warda di trabou.",
+                related: ["vonnis", "eiser", "dagvaarding"]
+            },
+            {
+                id: "term-25",
+                termNL: "griffier",
+                termPAP: "griffier / sekretario di korte",
+                grammar: "znw. m.",
+                category: "Procesrecht",
+                synonyms: ["secretaris van de rechtbank"],
+                defNL: "Functionaris van de rechtbank die de rechter ondersteunt en het proces-verbaal van de zitting opmaakt.",
+                defPAP: "Funcionario di corte cu ta asisti hues i ta traha e proces-verbaal di e seshon.",
+                exampleNL: "De griffier las het vonnis voor tijdens de openbare zitting.",
+                examplePAP: "E sekretario di korte a lesa e sentensia durante e seshon publico.",
+                related: ["rechter", "advocaat", "vonnis"]
+            },
+            {
+                id: "term-26",
+                termNL: "openbaar ministerie",
+                termPAP: "ministerio públiko",
+                grammar: "znw. o.",
+                category: "Strafrecht",
+                synonyms: ["OM", "parket"],
+                defNL: "Het overheidsorgaan dat belast is met de opsporing en vervolging van strafbare feiten.",
+                defPAP: "E orgaño di gobierno encarga cu investigashon i persekushon di delitonan.",
+                exampleNL: "Het Openbaar Ministerie eiste een gevangenisstraf van vier jaar.",
+                examplePAP: "Ministerio Públiko a exigi un castigo di carcel di cuater aña.",
+                related: ["verdachte", "strafbaar feit", "vrijspraak"]
+            },
+            {
+                id: "term-27",
+                termNL: "rechter",
+                termPAP: "hues",
+                grammar: "znw. m./v.",
+                category: "Procesrecht",
+                synonyms: ["magistraat"],
+                defNL: "Lid van de rechterlijke macht dat onafhankelijk oordeelt over geschillen en strafzaken.",
+                defPAP: "Miembro di poder hudicial cu ta husha independientemente riba disputanan i casonan penal.",
+                exampleNL: "De rechter oordeelde dat het bewijs onvoldoende was.",
+                examplePAP: "E hues a concidera cu e prueba no tabata suficiente.",
+                related: ["vonnis", "griffier", "hof van justitie"]
+            },
+            {
+                id: "term-28",
+                termNL: "pleidooi",
+                termPAP: "alegato / pleito",
+                grammar: "znw. o.",
+                category: "Procesrecht",
+                synonyms: ["mündliche Verhandlung", "betoog"],
+                defNL: "De mondelinge toelichting van een advocaat op de zitting ter verdediging van zijn cliënt.",
+                defPAP: "E explicashon verbal di un abogado den corte pa defende su cliente.",
+                exampleNL: "Tijdens het pleidooi legde de raadsman de nadruk op het gebrek aan bewijs.",
+                examplePAP: "Durante e alegato e abogado a enfatisa e falta di prueba.",
+                related: ["advocaat", "rechter"]
+            },
+            {
+                id: "term-29",
+                termNL: "verjaring",
+                termPAP: "preskripshon",
+                grammar: "znw. v.",
+                category: "Burgerlijk recht",
+                synonyms: ["bevrijdende verjaring"],
+                defNL: "Het tenietgaan van een rechtsvordering of strafvervolging door het verstrijken van een wettelijk vastgelegde termijn.",
+                defPAP: "E caducidad di un accshon legal o persekushon penal pa motivo di e paso di tempo stipula pa ley.",
+                exampleNL: "De vordering is door verjaring niet meer rechtens afdwingbaar.",
+                examplePAP: "E demanda a prescribi i no por keda exigi legalmente mas.",
+                related: ["vordering", "aansprakelijkheid"]
+            },
+            {
+                id: "term-30",
+                termNL: "vrijspraak",
+                termPAP: "absolushon",
+                grammar: "znw. v.",
+                category: "Strafrecht",
+                synonyms: ["vrijspreken"],
+                defNL: "De rechterlijke beslissing waarbij de verdachte niet schuldig wordt bevonden aan het ten laste gelegde feit.",
+                defPAP: "E desishon hudicial den cual e sospechoso no ta wordo haya culpabel di e hecho acusa.",
+                exampleNL: "De verdachte werd wegens gebrek aan overtuigend bewijs vrijgesproken.",
+                examplePAP: "E sospechoso a haya absolushon pa falta di prueba convisente.",
+                related: ["verdachte", "strafbaar feit", "openbaar ministerie"]
+            },
+            {
+                id: "term-31",
+                termNL: "hechtenis",
+                termPAP: "detenshon",
+                grammar: "znw. v.",
+                category: "Strafrecht",
+                synonyms: ["vrijheidsbeneming"],
+                defNL: "Een vrijheidsstraf die lichter is dan een gevangenisstraf, vaak opgelegd bij overtredingen.",
+                defPAP: "Un pena di privashon di libertad mas lihe cu carcel, hopi biaha pa contravencion.",
+                exampleNL: "De veroordeelde kreeg een hechtenis van twee weken opgelegd.",
+                examplePAP: "E condena a haya un detenshon di dos siman.",
+                related: ["voorlopige hechtenis", "verdachte"]
+            },
+            {
+                id: "term-32",
+                termNL: "voorlopige hechtenis",
+                termPAP: "detenshon provisorio",
+                grammar: "znw. v.",
+                category: "Strafrecht",
+                synonyms: ["preventieve hechtenis"],
+                defNL: "De vrijheidsbeneming van een verdachte in afwachting van het strafproces.",
+                defPAP: "Privashon di libertad di un sospechoso en espera di e juicio penal.",
+                exampleNL: "De rechter-commissaris verlengde de voorlopige hechtenis met dertig dagen.",
+                examplePAP: "E hues-comisario a prolonga e detenshon provisorio cu trinta dia.",
+                related: ["hechtenis", "verdachte", "strafbaar feit"]
+            },
+            {
+                id: "term-33",
+                termNL: "kantonrechter",
+                termPAP: "hues di kanton",
+                grammar: "znw. m.",
+                category: "Procesrecht",
+                synonyms: ["rechter in kantonzaken"],
+                defNL: "Alleenrechtsprekende rechter die oordeelt over onder meer arbeidszaken, huurgeschillen en vorderingen tot een bepaald geldbedrag.",
+                defPAP: "Hues cu ta husha e so riba asuntonan laboral, hür i demandanan financiero te un limite.",
+                exampleNL: "Het geschil over de huurverhoging werd aan de kantonrechter voorgelegd.",
+                examplePAP: "E conflicto tocante e subida di hür a keda presenta na e hues di kanton.",
+                related: ["rechter", "huurovereenkomst", "arbeidsovereenkomst"]
+            },
+            {
+                id: "term-34",
+                termNL: "hof van justitie",
+                termPAP: "hof di hustisia",
+                grammar: "znw. o.",
+                category: "Procesrecht",
+                synonyms: ["Gemeenschappelijk Hof"],
+                defNL: "Het Gemeenschappelijk Hof van Justitie van Aruba, Curaçao, Sint Maarten en van Bonaire, Sint Eustatius en Saba.",
+                defPAP: "E Corte Superior comun pa e islanan di Caribe hulandes.",
+                exampleNL: "Het Hof van Justitie bevestigde het vonnis van de eerste rechter.",
+                examplePAP: "E Hof di Hustisia a confirma e sentensia di e prome hues.",
+                related: ["hoger beroep", "cassatie", "rechter"]
+            },
+            {
+                id: "term-35",
+                termNL: "cassatie",
+                termPAP: "kasashon",
+                grammar: "znw. v.",
+                category: "Procesrecht",
+                synonyms: ["beroep in cassatie"],
+                defNL: "Het verzoek aan de Hoge Raad der Nederlanden om een uitspraak te vernietigen wegens schending van het recht.",
+                defPAP: "Petishon na Hoge Raad pa anula un sentensia pa motivo di violashon di ley.",
+                exampleNL: "De verdachte stelde beroep in cassatie in bij de Hoge Raad.",
+                examplePAP: "E sospechoso a bay den kasashon cerca Hoge Raad.",
+                related: ["hoger beroep", "hof van justitie"]
+            },
+            {
+                id: "term-36",
+                termNL: "schikking",
+                termPAP: "areglo / transakshon",
+                grammar: "znw. v.",
+                category: "Burgerlijk recht",
+                synonyms: ["vaststellingsovereenkomst", "minnelijke regeling"],
+                defNL: "Een afspraak tussen partijen waarmee zij een geschil beëindigen zonder verdere rechterlijke tussenkomst.",
+                defPAP: "Un akuerdo entre partidanan pa caba cu un conflicto sin mester di hues.",
+                exampleNL: "Partijen kwamen vlak voor de zitting tot een minnelijke schikking.",
+                examplePAP: "Partidanan a yega na un areglo amigabel xustamente prome cu e seshon.",
+                related: ["overeenkomst", "eiser", "gedaagde"]
+            },
+            {
+                id: "term-37",
+                termNL: "faillissement",
+                termPAP: "bakroti / faliamento",
+                grammar: "znw. o.",
+                category: "Burgerlijk recht",
+                synonyms: ["insolventie"],
+                defNL: "Gerechtelijk beslag op het gehele vermogen van een schuldenaar die heeft opgehouden te betalen.",
+                defPAP: "Embargo judicial riba henter e patrimonio di un deudor cu a stop di paga su debito.",
+                exampleNL: "De rechtbank heeft het faillissement van de onderneming uitgesproken.",
+                examplePAP: "E corte a declara e faliamento di e empresa.",
+                related: ["surseance van betaling", "boedel"]
+            },
+            {
+                id: "term-38",
+                termNL: "surseance van betaling",
+                termPAP: "suspeshon di pago",
+                grammar: "znw. v.",
+                category: "Burgerlijk recht",
+                synonyms: ["uitstel van betaling"],
+                defNL: "Gerechtelijke verlening van tijdelijk uitstel van betaling aan een schuldenaar om faillissement te voorkomen.",
+                defPAP: "Conceshon judicial di postponement di pago pa un deudor pa evita bakroti.",
+                exampleNL: "De vennootschap vroeg surseance van betaling aan.",
+                examplePAP: "E compania a pidi suspeshon di pago.",
+                related: ["faillissement", "aansprakelijkheid"]
+            },
+            {
+                id: "term-39",
+                termNL: "huurovereenkomst",
+                termPAP: "kontrato di hür",
+                grammar: "znw. v.",
+                category: "Contractenrecht",
+                synonyms: ["huurcontract"],
+                defNL: "Overeenkomst waarbij de verhuurder zich verbindt een zaak in gebruik te verstrekken en de huurder een tegenprestatie levert.",
+                defPAP: "Akuerdo den cual e arrendador ta duna un obheto den uzo i e arrendatario ta paga un suma.",
+                exampleNL: "De huurovereenkomst werd voor de duur van twee jaar aangegaan.",
+                examplePAP: "E kontrato di hür a keda firma pa un durashon di dos aña.",
+                related: ["overeenkomst", "kantonrechter"]
+            },
+            {
+                id: "term-40",
+                termNL: "boedel",
+                termPAP: "herensia / propiedat",
+                grammar: "znw. m.",
+                category: "Familierecht",
+                synonyms: ["nalatenschap", "vermogen"],
+                defNL: "Het geheel van bezittingen en schulden van een overledene of failliete persoon.",
+                defPAP: "E conhunto di biennan i debitonan di un fayecido o persona en bakroti.",
+                exampleNL: "De boedel werd onder de erfgenamen verdeeld.",
+                examplePAP: "E herensia a keda reparti entre e herederonan.",
+                related: ["testament", "faillissement"]
+            },
+            {
+                id: "term-41",
+                termNL: "notariskantoor",
+                termPAP: "notaria",
+                grammar: "znw. o.",
+                category: "Burgerlijk recht",
+                synonyms: ["notariaat"],
+                defNL: "Het kantoor van een openbaar ambtenaar die bevoegd is authentieke akten op te maken.",
+                defPAP: "E oficina di un funcionario publico cu tin e autoridad pa redacta actanan oficial.",
+                exampleNL: "De leveringsakte werd getekend op het notariskantoor.",
+                examplePAP: "E acta di traspaso a keda firma na e notaria.",
+                related: ["testament", "volmacht"]
+            },
+            {
+                id: "term-42",
+                termNL: "volmacht",
+                termPAP: "poder / othorisashon",
+                grammar: "znw. v.",
+                category: "Burgerlijk recht",
+                synonyms: ["machtiging"],
+                defNL: "De bevoegdheid die een persoon aan een ander verleent om in zijn of haar naam rechtshandelingen te verrichten.",
+                defPAP: "E autoridad cu un persona ta duna na otro pa haci actonan legal den su nomber.",
+                exampleNL: "De gemachtigde tekende het contract op basis van een schriftelijke volmacht.",
+                examplePAP: "E apoderado a firma e kontrato abase di un poder por escrito.",
+                related: ["notariskantoor", "overeenkomst"]
+            },
+            {
+                id: "term-43",
+                termNL: "alimentatie",
+                termPAP: "alimentashon",
+                grammar: "znw. v.",
+                category: "Familierecht",
+                synonyms: ["onderhoudsplicht"],
+                defNL: "Wettelijke financiële bijdrage in de kosten van levensonderhoud van een ex-partner of kind.",
+                defPAP: "Contribushon financiero legal pa e gastonan di mantencion di ex-pareha o yiu.",
+                exampleNL: "De man werd veroordeeld tot betaling van kinderalimentatie.",
+                examplePAP: "E homber a keda condena pa paga alimentashon di yiu.",
+                related: ["echtscheiding", "ouderlijk gezag"]
+            },
+            {
+                id: "term-44",
+                termNL: "ouderlijk gezag",
+                termPAP: "autoridat di tata i mama / gezag",
+                grammar: "znw. o.",
+                category: "Familierecht",
+                synonyms: ["ouderlijke macht"],
+                defNL: "Het recht en de plicht van ouders om hun minderjarige kinderen te opvoeden en te verzorgen.",
+                defPAP: "E derechi i obligashon di matris i patris pa lanta i cuida nan yiunan menor di edad.",
+                exampleNL: "Na de scheiding behielden beide ouders het gezamenlijk ouderlijk gezag.",
+                examplePAP: "Despues di e divorcio, ambos tata a conserva e autoridat conhunto.",
+                related: ["voogdij", "echtscheiding", "alimentatie"]
+            },
+            {
+                id: "term-45",
+                termNL: "voogd",
+                termPAP: "tutor",
+                grammar: "znw. m.",
+                category: "Familierecht",
+                synonyms: ["gezagdrager"],
+                defNL: "Persoon die wettelijk is aangesteld om het gezag over een minderjarige uit te oefenen.",
+                defPAP: "Persona nombra pa ley pa eherece autoridat riba un menor di edad.",
+                exampleNL: "De voogd vertegenwoordigt de minderjarige in juridische aangelegenheden.",
+                examplePAP: "E tutor ta representa e menor den asuntonan legal.",
+                related: ["voogdij", "ouderlijk gezag"]
+            },
+            {
+                id: "term-46",
+                termNL: "dwangsom",
+                termPAP: "boet di kumplimentu / dwangsom",
+                grammar: "znw. v.",
+                category: "Procesrecht",
+                synonyms: ["sanctiebedrag"],
+                defNL: "Geldsom die door de rechter wordt opgelegd en die verbeurd wordt als de veroordeelde niet aan de hoofdveroordeling voldoet.",
+                defPAP: "Suma di placa imponi pa hues cu mester keda paga si e condena no cumpli cu e sentensia principal.",
+                exampleNL: "De rechter verbond een dwangsom van NAF 1.000 per dag aan de uitspraak.",
+                examplePAP: "E hues a faha un dwangsom di NAF 1.000 pa dia na e uitspraak.",
+                related: ["vonnis", "kort geding"]
+            },
+            {
+                id: "term-47",
+                termNL: "ontslag op staande voet",
+                termPAP: "retiro inmediato",
+                grammar: "znw. o.",
+                category: "Arbeidsrecht",
+                synonyms: ["onmiddellijke opzegging"],
+                defNL: "Beëindiging van de arbeidsovereenkomst met onmiddellijke ingang wegens een dringende reden.",
+                defPAP: "Terminashon di e kontrato di trabou mesora pa motivo di un rason urgente.",
+                exampleNL: "Diefstal op de werkvloer leidde tot een ontslag op staande voet.",
+                examplePAP: "Hurtamento riba sitio di trabou a resulta den un retiro inmediato.",
+                related: ["arbeidsovereenkomst", "proefperiodes"]
+            },
+            {
+                id: "term-48",
+                termNL: "proefperiode",
+                termPAP: "tempu di prueba",
+                grammar: "znw. v.",
+                category: "Arbeidsrecht",
+                synonyms: ["proeftijd"],
+                defNL: "De beginperiode van een arbeidsovereenkomst waarin beide partijen zonder opzegtermijn kunnen opzeggen.",
+                defPAP: "E periodo inicial di un kontrato di trabou den cual ambos parti por duna retiro mesora.",
+                exampleNL: "Gedurende de proefperiode kan de werknemer per direct opzeggen.",
+                examplePAP: "Durante e tempu di prueba e empleado por duna retiro mesora.",
+                related: ["arbeidsovereenkomst", "ontslag op staande voet"]
+            },
+            {
+                id: "term-49",
+                termNL: "collectieve arbeidsovereenkomst",
+                termPAP: "CAO / akuerdo kolektivo di trabou",
+                grammar: "znw. v.",
+                category: "Arbeidsrecht",
+                synonyms: ["CAO"],
+                defNL: "Schriftelijke overeenkomst waarin afspraken over arbeidsvoorwaarden zijn vastgelegd tussen werkgevers en vakbonden.",
+                defPAP: "Akuerdo por escrito den cual ta fiha e condicionnan di trabou entre patronnan i sindicato.",
+                exampleNL: "De nieuwe CAO werd voor de duur van twee jaar afgesloten.",
+                examplePAP: "E CAO nobo a keda firma pa e durashon di dos aña.",
+                related: ["arbeidsovereenkomst"]
+            },
+            {
+                id: "term-50",
+                termNL: "bestuursrecht",
+                termPAP: "derecho administrativo",
+                grammar: "znw. o.",
+                category: "Bestuursrecht",
+                synonyms: ["administratief recht"],
+                defNL: "Het geheel van rechtsregels die betrekking hebben op de inrichting en het handelen van het openbaar bestuur.",
+                defPAP: "E conhunto di reglanan legal cu ta toca e estructuracion i e actuacion di gobernashon publico.",
+                exampleNL: "Het bestuursrecht regelt de verhouding tussen overheid en burger.",
+                examplePAP: "Derecho administrativo ta regla e relashon entre gobierno i ciudadano.",
+                related: ["bestuursorgaan", "beschikking", "bezwaar"]
+            },
+            {
+                id: "term-51",
+                termNL: "bestuursorgaan",
+                termPAP: "órgano di gobernashon",
+                grammar: "znw. o.",
+                category: "Bestuursrecht",
+                synonyms: ["overheidsorgaan"],
+                defNL: "Een orgaan van een rechtspersoon die krachtens publiekrecht is ingesteld of met openbaar gezag is bekleed.",
+                defPAP: "Un órgano di un persona juridico di derechi publico o encarga cu autoridat publico.",
+                exampleNL: "De Minister van Justitie treedt op als bestuursorgaan.",
+                examplePAP: "E Minister di Hustisia ta actua como órgano di gobernashon.",
+                related: ["bestuursrecht", "beschikking"]
+            },
+            {
+                id: "term-52",
+                termNL: "beschikking",
+                termPAP: "desishon / disponishon",
+                grammar: "znw. v.",
+                category: "Bestuursrecht",
+                synonyms: ["besluit", "bestuursbesluit"],
+                defNL: "Een schriftelijk besluit van een bestuursorgaan dat gericht is op enig rechtsgevolg voor een specifiek geval.",
+                defPAP: "Un desishon por escrito di un órgano di gobernashon dirigi na un efeclto legal specifico.",
+                exampleNL: "Tegen de beschikking van de minister staat bezwaar open.",
+                examplePAP: "Contra e disponishon di e minister por presenta obheshon.",
+                related: ["bestuursorgaan", "bezwaar", "beroep"]
+            },
+            {
+                id: "term-53",
+                termNL: "handhaving",
+                termPAP: "ehekushon di ley / mantenshon",
+                grammar: "znw. v.",
+                category: "Bestuursrecht",
+                synonyms: ["rechtshandhaving"],
+                defNL: "Het optreden van de overheid om naleving van regelgeving af te dwingen.",
+                defPAP: "E actuashon di gobierno pa haci cumpilmento di reglanan obligatorio.",
+                exampleNL: "De inspectie is belast met de bestuursrechtelijke handhaving.",
+                examplePAP: "E inspeccion ta encarga cu mantenshon administrativo.",
+                related: ["bestuursorgaan", "dwangsom"]
+            }
+        ];
+
+        // GLOBAL APPLICATION STATE
+        let dictionaryData = [];
+        let favorites = [];
+        let recentSearches = [];
+        let currentFilterCategory = "ALL";
+        let currentAlphabetFilter = "ALL";
+        let currentSearchQuery = "";
+        let currentWordIndex = -1;
+        let filteredResults = [];
+
+        // INITIALIZATION
+        window.onload = function() {
+            document.getElementById('yearSpan').textContent = new Date().getFullYear();
+            loadLocalStorageData();
+            buildAlphabetNav();
+            buildCategoryFilterList();
+            setupSearchListeners();
+            renderDictionary();
+        };
+
+        // LOCAL STORAGE MANAGEMENT
+        function loadLocalStorageData() {
+            // Load custom/extended dictionary
+            const storedDict = localStorage.getItem('juridisch_dict_custom_v1');
+            if (storedDict) {
+                try {
+                    dictionaryData = JSON.parse(storedDict);
+                } catch(e) {
+                    dictionaryData = [...INITIAL_DATABASE];
+                }
+            } else {
+                dictionaryData = [...INITIAL_DATABASE];
+                saveDictionaryToStorage();
+            }
+
+            // Load favorites
+            const storedFavs = localStorage.getItem('juridisch_dict_favs_v1');
+            if (storedFavs) {
+                try { favorites = JSON.parse(storedFavs); } catch(e) { favorites = []; }
+            }
+
+            // Load recent searches
+            const storedRecent = localStorage.getItem('juridisch_dict_recent_v1');
+            if (storedRecent) {
+                try { recentSearches = JSON.parse(storedRecent); } catch(e) { recentSearches = []; }
+            }
+
+            updateFavoritesBadge();
+            renderRecentSearches();
+        }
+
+        function saveDictionaryToStorage() {
+            localStorage.setItem('juridisch_dict_custom_v1', JSON.stringify(dictionaryData));
+            document.getElementById('totalTermsCount').textContent = dictionaryData.length;
+        }
+
+        function saveFavoritesToStorage() {
+            localStorage.setItem('juridisch_dict_favs_v1', JSON.stringify(favorites));
+            updateFavoritesBadge();
+        }
+
+        function saveRecentSearchesToStorage() {
+            localStorage.setItem('juridisch_dict_recent_v1', JSON.stringify(recentSearches.slice(0, 5)));
+            renderRecentSearches();
+        }
+
+        // DIACRITICS STRIPPER FOR FUZZY SEARCH (e.g. kódigo -> kodigo, sentensia -> sentensia)
+        function normalizeText(str) {
+            if (!str) return '';
+            return str
+                .toLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .trim();
+        }
+
+        // ALPHABET NAVIGATION BUILDER
+        function buildAlphabetNav() {
+            const nav = document.getElementById('alphabetNav');
+            nav.innerHTML = '';
+
+            const allBtn = document.createElement('button');
+            allBtn.onclick = () => filterByLetter('ALL');
+            allBtn.className = `px-2 py-1 rounded text-xs font-bold transition ${currentAlphabetFilter === 'ALL' ? 'bg-navy-900 text-white shadow' : 'text-slate-600 hover:bg-slate-100'}`;
+            allBtn.textContent = 'ALLES';
+            nav.appendChild(allBtn);
+
+            const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+            
+            letters.forEach(letter => {
+                // Count available
+                const count = dictionaryData.filter(item => normalizeText(item.termNL).startsWith(letter.toLowerCase())).length;
+                
+                const btn = document.createElement('button');
+                btn.onclick = () => filterByLetter(letter);
+                btn.className = `px-2 py-1 rounded text-xs font-semibold transition ${currentAlphabetFilter === letter ? 'bg-gold-500 text-navy-900 font-bold' : (count > 0 ? 'text-slate-800 hover:bg-slate-100' : 'text-slate-300 cursor-default')}`;
+                btn.textContent = letter;
+                if (count === 0) btn.disabled = true;
+                nav.appendChild(btn);
+            });
+        }
+
+        // CATEGORY FILTER LIST BUILDER
+        function buildCategoryFilterList() {
+            const categories = [
+                "ALL", "Strafrecht", "Burgerlijk recht", "Familierecht", 
+                "Arbeidsrecht", "Bestuursrecht", "Contractenrecht", "Procesrecht", "Goederenrecht"
+            ];
+
+            const container = document.getElementById('categoryFilterList');
+            container.innerHTML = '';
+
+            categories.forEach(cat => {
+                const count = cat === "ALL" 
+                    ? dictionaryData.length 
+                    : dictionaryData.filter(d => d.category === cat).length;
+
+                const active = currentFilterCategory === cat;
+                const btn = document.createElement('button');
+                btn.onclick = () => filterByCategory(cat);
+                btn.className = `w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs transition ${active ? 'bg-navy-900 text-white font-bold' : 'text-slate-700 hover:bg-slate-100'}`;
+                
+                btn.innerHTML = `
+                    <span>${cat === 'ALL' ? 'Alle Rechtsgebieden' : cat}</span>
+                    <span class="px-2 py-0.5 rounded-full text-[10px] ${active ? 'bg-gold-500 text-navy-900 font-bold' : 'bg-slate-100 text-slate-500'}">${count}</span>
+                `;
+                container.appendChild(btn);
+            });
+
+            document.getElementById('totalTermsCount').textContent = dictionaryData.length;
+        }
+
+        // SEARCH ENGINE LISTENERS & AUTOCOMPLETE
+        function setupSearchListeners() {
+            const input = document.getElementById('searchInput');
+            const clearBtn = document.getElementById('clearSearchBtn');
+            const suggestionsBox = document.getElementById('suggestionsBox');
+
+            input.addEventListener('input', function(e) {
+                const query = e.target.value;
+                currentSearchQuery = query;
+
+                if (query.trim().length > 0) {
+                    clearBtn.classList.remove('hidden');
+                    renderSuggestions(query);
+                } else {
+                    clearBtn.classList.add('hidden');
+                    suggestionsBox.classList.add('hidden');
+                }
+                renderDictionary();
+            });
+
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    clearSearch();
+                } else if (e.key === 'Enter') {
+                    if (currentSearchQuery.trim()) {
+                        addRecentSearch(currentSearchQuery.trim());
+                    }
+                    suggestionsBox.classList.add('hidden');
+                }
+            });
+
+            // Close suggestions when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!input.contains(e.target) && !suggestionsBox.contains(e.target)) {
+                    suggestionsBox.classList.add('hidden');
+                }
+            });
+        }
+
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            currentSearchQuery = '';
+            document.getElementById('clearSearchBtn').classList.add('hidden');
+            document.getElementById('suggestionsBox').classList.add('hidden');
+            renderDictionary();
+        }
+
+        // AUTOCOMPLETE SUGGESTIONS RENDER
+        function renderSuggestions(query) {
+            const box = document.getElementById('suggestionsBox');
+            const norm = normalizeText(query);
+
+            if (!norm) {
+                box.classList.add('hidden');
+                return;
+            }
+
+            const matches = dictionaryData.filter(item => {
+                const nl = normalizeText(item.termNL);
+                const pap = normalizeText(item.termPAP);
+                const syns = item.synonyms ? item.synonyms.map(s => normalizeText(s)).join(" ") : "";
+                return nl.includes(norm) || pap.includes(norm) || syns.includes(norm);
+            }).slice(0, 6);
+
+            if (matches.length === 0) {
+                box.classList.add('hidden');
+                return;
+            }
+
+            box.innerHTML = '';
+            matches.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'p-3 hover:bg-slate-50 cursor-pointer border-b border-slate-100 flex items-center justify-between text-xs transition';
+                div.onclick = () => {
+                    openDetailModal(item.id);
+                    box.classList.add('hidden');
+                    addRecentSearch(item.termNL);
+                };
+
+                div.innerHTML = `
+                    <div>
+                        <span class="font-bold text-slate-800 text-sm">${item.termNL}</span>
+                        <span class="text-slate-400 mx-1">→</span>
+                        <span class="font-serif italic text-gold-600 font-semibold text-sm">${item.termPAP}</span>
+                    </div>
+                    <span class="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded border">${item.category}</span>
+                `;
+                box.appendChild(div);
+            });
+
+            box.classList.remove('hidden');
+        }
+
+        // RECENT SEARCHES
+        function addRecentSearch(term) {
+            if (!term) return;
+            recentSearches = recentSearches.filter(s => s.toLowerCase() !== term.toLowerCase());
+            recentSearches.unshift(term);
+            if (recentSearches.length > 5) recentSearches.pop();
+            saveRecentSearchesToStorage();
+        }
+
+        function renderRecentSearches() {
+            const list = document.getElementById('recentList');
+            list.innerHTML = '';
+
+            if (recentSearches.length === 0) {
+                document.getElementById('recentSearchesContainer').classList.add('hidden');
+                return;
+            }
+
+            document.getElementById('recentSearchesContainer').classList.remove('hidden');
+
+            recentSearches.forEach(term => {
+                const badge = document.createElement('button');
+                badge.className = 'bg-slate-800/80 hover:bg-gold-500 hover:text-navy-900 text-slate-300 px-2.5 py-0.5 rounded-full text-xs transition border border-slate-700/50';
+                badge.textContent = term;
+                badge.onclick = () => {
+                    document.getElementById('searchInput').value = term;
+                    currentSearchQuery = term;
+                    document.getElementById('clearSearchBtn').classList.remove('hidden');
+                    renderDictionary();
+                };
+                list.appendChild(badge);
+            });
+        }
+
+        // FILTERS & SORTING HANDLERS
+        function filterByCategory(cat) {
+            currentFilterCategory = cat;
+            buildCategoryFilterList();
+            renderDictionary();
+        }
+
+        function filterByLetter(letter) {
+            currentAlphabetFilter = letter;
+            buildAlphabetNav();
+            renderDictionary();
+        }
+
+        function handleSortChange() {
+            renderDictionary();
+        }
+
+        function resetAllFilters() {
+            currentFilterCategory = "ALL";
+            currentAlphabetFilter = "ALL";
+            currentSearchQuery = "";
+            document.getElementById('searchInput').value = "";
+            document.getElementById('clearSearchBtn').classList.add('hidden');
+            buildCategoryFilterList();
+            buildAlphabetNav();
+            renderDictionary();
+        }
+
+        function toggleFavoritesView() {
+            if (currentFilterCategory === "FAVORITES") {
+                filterByCategory("ALL");
+            } else {
+                currentFilterCategory = "FAVORITES";
+                buildCategoryFilterList();
+                renderDictionary();
+            }
+        }
+
+        // CORE RENDER FUNCTION FOR DICTIONARY LIST
+        function renderDictionary() {
+            const listContainer = document.getElementById('dictionaryList');
+            const emptyState = document.getElementById('emptyState');
+            const sortVal = document.getElementById('sortSelect').value;
+
+            const normQuery = normalizeText(currentSearchQuery);
+
+            // Filtering Pipeline
+            filteredResults = dictionaryData.filter(item => {
+                // 1. Favorites Filter
+                if (currentFilterCategory === "FAVORITES") {
+                    if (!favorites.includes(item.id)) return false;
+                } 
+                // 2. Category Filter
+                else if (currentFilterCategory !== "ALL") {
+                    if (item.category !== currentFilterCategory) return false;
+                }
+
+                // 3. Alphabet Filter
+                if (currentAlphabetFilter !== "ALL") {
+                    if (!normalizeText(item.termNL).startsWith(currentAlphabetFilter.toLowerCase())) return false;
+                }
+
+                // 4. Search Query (diacritics insensitive & fuzzy)
+                if (normQuery) {
+                    const nl = normalizeText(item.termNL);
+                    const pap = normalizeText(item.termPAP);
+                    const syns = item.synonyms ? item.synonyms.map(s => normalizeText(s)).join(" ") : "";
+                    const defNL = normalizeText(item.defNL);
+                    const defPAP = normalizeText(item.defPAP);
+
+                    const matches = nl.includes(normQuery) || 
+                                    pap.includes(normQuery) || 
+                                    syns.includes(normQuery) || 
+                                    defNL.includes(normQuery) || 
+                                    defPAP.includes(normQuery);
+                    
+                    if (!matches) return false;
+                }
+
+                return true;
+            });
+
+            // Sorting Pipeline
+            filteredResults.sort((a, b) => {
+                if (sortVal === "alpha-asc") return a.termNL.localeCompare(b.termNL);
+                if (sortVal === "alpha-desc") return b.termNL.localeCompare(a.termNL);
+                if (sortVal === "pap-asc") return a.termPAP.localeCompare(b.termPAP);
+                if (sortVal === "category") return a.category.localeCompare(b.category);
+                return 0;
+            });
+
+            // Update UI Counters
+            document.getElementById('resultsCountBadge').textContent = `${filteredResults.length} resultaten`;
+            updateActiveFilterBadges();
+
+            if (filteredResults.length === 0) {
+                listContainer.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            listContainer.innerHTML = '';
+
+            // Render Cards (Van Dale / Woordenlijst.org layout style)
+            filteredResults.forEach((item, index) => {
+                const isFav = favorites.includes(item.id);
+
+                const card = document.createElement('article');
+                card.className = "bg-white rounded-xl p-5 border border-slate-200/80 shadow-sm hover:shadow-md hover:border-gold-500/40 transition flex flex-col sm:flex-row sm:items-center justify-between gap-4 cursor-pointer group";
+                card.onclick = (e) => {
+                    // Prevent trigger if clicking action buttons directly
+                    if (e.target.closest('button')) return;
+                    openDetailModal(item.id);
+                };
+
+                card.innerHTML = `
+                    <div class="space-y-1.5 flex-grow">
+                        <div class="flex items-center gap-2 flex-wrap">
+                            <h3 class="text-lg font-serif font-bold text-slate-900 group-hover:text-gold-600 transition">
+                                ${highlightMatch(item.termNL, normQuery)}
+                            </h3>
+                            <span class="text-xs text-slate-400 italic font-serif">(${item.grammar || 'znw.'})</span>
+                            <span class="text-[10px] font-bold uppercase tracking-wider bg-slate-100 text-slate-600 px-2.5 py-0.5 rounded border border-slate-200">
+                                ${item.category}
+                            </span>
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs font-bold text-slate-400 uppercase">Papiamentu:</span>
+                            <span class="text-base font-serif font-semibold text-navy-900">
+                                ${highlightMatch(item.termPAP, normQuery)}
+                            </span>
+                        </div>
+
+                        <p class="text-xs text-slate-600 line-clamp-1 font-serif">
+                            ${item.defNL ? item.defNL : 'Geen definitie beschikbaar.'}
+                        </p>
+                    </div>
+
+                    <div class="flex items-center space-x-2 self-end sm:self-center border-t sm:border-t-0 pt-2 sm:pt-0 border-slate-100">
+                        <button onclick="toggleFavorite('${item.id}', event)" class="p-2 rounded-lg text-slate-400 hover:text-gold-500 hover:bg-amber-50 transition" title="Aan favorieten toevoegen">
+                            <i class="${isFav ? 'fa-solid fa-bookmark text-gold-500' : 'fa-regular fa-bookmark'} text-lg"></i>
+                        </button>
+                        <button onclick="openDetailModal('${item.id}')" class="px-3 py-1.5 bg-slate-100 hover:bg-navy-900 hover:text-white rounded-lg text-xs font-semibold text-slate-700 transition flex items-center gap-1">
+                            <span>Bekijk</span>
+                            <i class="fa-solid fa-angle-right"></i>
+                        </button>
+                    </div>
+                `;
+                listContainer.appendChild(card);
+            });
+        }
+
+        function highlightMatch(text, query) {
+            if (!query) return text;
+            const normText = normalizeText(text);
+            const index = normText.indexOf(query);
+            if (index === -1) return text;
+
+            const originalMatch = text.substring(index, index + query.length);
+            return text.replace(originalMatch, `<mark class="highlight-match">${originalMatch}</mark>`);
+        }
+
+        function updateActiveFilterBadges() {
+            const container = document.getElementById('activeFiltersBar');
+            const badgeBox = document.getElementById('activeFiltersBadges');
+            badgeBox.innerHTML = '';
+
+            let hasActive = false;
+
+            if (currentFilterCategory !== 'ALL') {
+                hasActive = true;
+                badgeBox.innerHTML += `<span class="bg-gold-500 text-navy-900 px-2 py-0.5 rounded font-bold">Rechtsgebied: ${currentFilterCategory}</span>`;
+            }
+            if (currentAlphabetFilter !== 'ALL') {
+                hasActive = true;
+                badgeBox.innerHTML += `<span class="bg-gold-500 text-navy-900 px-2 py-0.5 rounded font-bold">Letter: ${currentAlphabetFilter}</span>`;
+            }
+            if (currentSearchQuery) {
+                hasActive = true;
+                badgeBox.innerHTML += `<span class="bg-gold-500 text-navy-900 px-2 py-0.5 rounded font-bold">Zoekterm: "${currentSearchQuery}"</span>`;
+            }
+
+            if (hasActive) {
+                container.classList.remove('hidden');
+            } else {
+                container.classList.add('hidden');
+            }
+        }
+
+        // FAVORITES MANAGEMENT
+        function toggleFavorite(id, event) {
+            if (event) event.stopPropagation();
+
+            const idx = favorites.indexOf(id);
+            if (idx > -1) {
+                favorites.splice(idx, 1);
+                showToast("Verwijderd uit favorieten", "info");
+            } else {
+                favorites.push(id);
+                showToast("Toegevoegd aan favorieten", "success");
+            }
+
+            saveFavoritesToStorage();
+            renderDictionary();
+
+            // Update detail modal fav state if active
+            const currentDetail = dictionaryData[currentWordIndex];
+            if (currentDetail && currentDetail.id === id) {
+                updateModalFavButton(id);
+            }
+        }
+
+        function updateFavoritesBadge() {
+            document.getElementById('favBadge').textContent = favorites.length;
+            document.getElementById('mobileFavBadge').textContent = favorites.length;
+        }
+
+        // MODAL DETAIL VIEW LOGIC
+        function openDetailModal(id) {
+            const word = dictionaryData.find(w => w.id === id);
+            if (!word) return;
+
+            currentWordIndex = filteredResults.findIndex(w => w.id === id);
+
+            document.getElementById('detailTerm').textContent = word.termNL;
+            document.getElementById('detailGrammar').textContent = word.grammar || 'znw.';
+            document.getElementById('detailCategory').textContent = word.category || 'Algemeen';
+            document.getElementById('detailTranslation').textContent = word.termPAP;
+
+            // Synonyms
+            const synBox = document.getElementById('detailSynonymsSection');
+            if (word.synonyms && word.synonyms.length > 0) {
+                document.getElementById('detailSynonyms').textContent = word.synonyms.join(', ');
+                synBox.classList.remove('hidden');
+            } else {
+                synBox.classList.add('hidden');
+            }
+
+            // Definitions
+            document.getElementById('detailDefNL').textContent = word.defNL || "Geen Nederlandse definitie beschikbaar.";
+            document.getElementById('detailDefPAP').textContent = word.defPAP || "Sin definishon na Papiamentu disponibel.";
+
+            // Context / Examples
+            const ctxBox = document.getElementById('detailContextSection');
+            if (word.exampleNL) {
+                document.getElementById('detailExampleNL').textContent = `"${word.exampleNL}"`;
+                document.getElementById('detailExamplePAP').textContent = word.examplePAP ? `"${word.examplePAP}"` : "";
+                ctxBox.classList.remove('hidden');
+            } else {
+                ctxBox.classList.add('hidden');
+            }
+
+            // Related terms badges
+            const relatedBox = document.getElementById('detailRelated');
+            relatedBox.innerHTML = '';
+            if (word.related && word.related.length > 0) {
+                word.related.forEach(rel => {
+                    const badge = document.createElement('button');
+                    badge.className = "bg-slate-100 hover:bg-gold-500 hover:text-navy-900 border border-slate-200 text-slate-700 px-2.5 py-1 rounded-lg text-xs font-medium transition";
+                    badge.textContent = rel;
+                    badge.onclick = () => {
+                        closeDetailModal();
+                        document.getElementById('searchInput').value = rel;
+                        currentSearchQuery = rel;
+                        renderDictionary();
+                    };
+                    relatedBox.appendChild(badge);
+                });
+            } else {
+                relatedBox.innerHTML = '<span class="text-xs text-slate-400 italic">Geen gerelateerde termen gekoppeld.</span>';
+            }
+
+            updateModalFavButton(word.id);
+            setupNextPrevButtons();
+
+            document.getElementById('detailModal').classList.remove('hidden');
+        }
+
+        function updateModalFavButton(id) {
+            const btn = document.getElementById('detailFavBtn');
+            const isFav = favorites.includes(id);
+            btn.innerHTML = `<i class="${isFav ? 'fa-solid fa-bookmark text-gold-400' : 'fa-regular fa-bookmark'}"></i>`;
+            btn.onclick = (e) => toggleFavorite(id, e);
+        }
+
+        function setupNextPrevButtons() {
+            const prevBtn = document.getElementById('prevWordBtn');
+            const nextBtn = document.getElementById('nextWordBtn');
+
+            if (currentWordIndex > 0) {
+                prevBtn.disabled = false;
+                prevBtn.onclick = () => {
+                    const prevWord = filteredResults[currentWordIndex - 1];
+                    if (prevWord) openDetailModal(prevWord.id);
+                };
+            } else {
+                prevBtn.disabled = true;
+            }
+
+            if (currentWordIndex < filteredResults.length - 1) {
+                nextBtn.disabled = false;
+                nextBtn.onclick = () => {
+                    const nextWord = filteredResults[currentWordIndex + 1];
+                    if (nextWord) openDetailModal(nextWord.id);
+                };
+            } else {
+                nextBtn.disabled = true;
+            }
+        }
+
+        function closeDetailModal() {
+            document.getElementById('detailModal').classList.add('hidden');
+        }
+
+        // TEXT TO SPEECH (PRO NUNCIATION SIMULATION)
+        function speakText() {
+            const word = dictionaryData[currentWordIndex];
+            if (!word) return;
+
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(word.termPAP);
+                utterance.lang = 'es-ES'; // Spanish synthesis provides good phonetic approximation for Papiamentu
+                utterance.rate = 0.9;
+                window.speechSynthesis.speak(utterance);
+            } else {
+                showToast("Audio niet ondersteund op uw apparaat", "info");
+            }
+        }
+
+        function copyTranslation() {
+            const word = dictionaryData[currentWordIndex];
+            if (!word) return;
+
+            const textToCopy = `${word.termNL} -> ${word.termPAP}`;
+            
+            // Fallback execCommand for iframe compatibility
+            const dummy = document.createElement("textarea");
+            document.body.appendChild(dummy);
+            dummy.value = textToCopy;
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+
+            showToast("Vertaling gekopieerd naar klembord!", "success");
+        }
+
+        // MODAL ADD NEW WORD
+        function openAddModal() {
+            document.getElementById('addModal').classList.remove('hidden');
+        }
+
+        function closeAddModal() {
+            document.getElementById('addModal').classList.add('hidden');
+            document.getElementById('addTermForm').reset();
+        }
+
+        function handleAddNewTerm(e) {
+            e.preventDefault();
+
+            const termNL = document.getElementById('addTermNL').value.trim();
+            const termPAP = document.getElementById('addTermPAP').value.trim();
+            const grammar = document.getElementById('addGrammar').value;
+            const category = document.getElementById('addCategory').value;
+            const synonymsRaw = document.getElementById('addSynonyms').value;
+            const defNL = document.getElementById('addDefNL').value.trim();
+            const defPAP = document.getElementById('addDefPAP').value.trim();
+
+            const synonyms = synonymsRaw ? synonymsRaw.split(',').map(s => s.trim()) : [];
+
+            const newEntry = {
+                id: "custom-" + Date.now(),
+                termNL,
+                termPAP,
+                grammar,
+                category,
+                synonyms,
+                defNL,
+                defPAP,
+                exampleNL: "",
+                examplePAP: "",
+                related: []
+            };
+
+            dictionaryData.unshift(newEntry);
+            saveDictionaryToStorage();
+            buildCategoryFilterList();
+            buildAlphabetNav();
+            renderDictionary();
+
+            closeAddModal();
+            showToast(`Term "${termNL}" succesvol toegevoegd!`, "success");
+        }
+
+        // EXPORT / IMPORT MODAL LOGIC
+        function openExportModal() {
+            document.getElementById('exportModal').classList.remove('hidden');
+        }
+
+        function closeExportModal() {
+            document.getElementById('exportModal').classList.add('hidden');
+        }
+
+        function exportDatabaseJSON() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(dictionaryData, null, 2));
+            const dlAnchor = document.createElement('a');
+            dlAnchor.setAttribute("href", dataStr);
+            dlAnchor.setAttribute("download", `juridisch_woordenboek_export_${new Date().toISOString().slice(0,10)}.json`);
+            document.body.appendChild(dlAnchor);
+            dlAnchor.click();
+            dlAnchor.remove();
+            showToast("Woordenbank als JSON gedownload", "success");
+        }
+
+        function exportFavoritesCSV() {
+            const favItems = dictionaryData.filter(item => favorites.includes(item.id));
+            if (favItems.length === 0) {
+                showToast("Geen favorieten opgeslagen om te exporteren", "info");
+                return;
+            }
+
+            let csvContent = "data:text/csv;charset=utf-8,Nederlands,Papiamentu,Categorie,Woordsoort\n";
+            favItems.forEach(item => {
+                csvContent += `"${item.termNL}","${item.termPAP}","${item.category}","${item.grammar}"\n`;
+            });
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `favoriete_juridische_termen.csv`);
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            showToast("Favorieten geëxporteerd als CSV", "success");
+        }
+
+        // IMPORT JSON LOGIC
+        document.getElementById('importFileInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                try {
+                    const imported = JSON.parse(event.target.result);
+                    if (Array.isArray(imported) && imported.length > 0) {
+                        dictionaryData = imported;
+                        saveDictionaryToStorage();
+                        buildCategoryFilterList();
+                        buildAlphabetNav();
+                        renderDictionary();
+                        closeExportModal();
+                        showToast(`Woordenbank geüpdatet with ${imported.length} termen!`, "success");
+                    } else {
+                        showToast("Ongeldig JSON-bestand geüpload", "info");
+                    }
+                } catch(err) {
+                    showToast("Fout bij verwerken bestand", "info");
+                }
+            };
+            reader.readAsText(file);
+        });
+
+        // UI UTILITIES & TOASTS
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        function resetSearchAndHome() {
+            resetAllFilters();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showToast(message, type = "success") {
+            const toast = document.getElementById('toast');
+            const msg = document.getElementById('toastMsg');
+            const icon = document.getElementById('toastIcon');
+
+            msg.textContent = message;
+
+            if (type === "success") {
+                icon.className = "fa-solid fa-circle-check text-gold-400 text-base";
+            } else {
+                icon.className = "fa-solid fa-circle-info text-blue-400 text-base";
+            }
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
